@@ -1,0 +1,73 @@
+    <!DOCTYPE html>
+    <html lang="ar" dir="rtl" translate="no">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google" content="notranslate">
+        <title data-ar="هاندمايد | متجر ملابس نسائية" data-en="Handmade | Women's Boutique">هاندمايد | متجر ملابس نسائية</title>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+
+        <!-- Announcement Bar -->
+        <div class="announcement-bar" data-ar="✨ تشكيلة جديدة متوفرة الآن — اطلبي عبر واتساب والدفع عن طريق InstaPay ✨" data-en="✨ New collection available now — Order via WhatsApp & InstaPay ✨">
+            ✨ تشكيلة جديدة متوفرة الآن — اطلبي عبر واتساب والدفع عن طريق InstaPay ✨
+        </div>
+
+        <!-- Navbar -->
+        <header class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">Handmade <span>✦</span></a>
+                
+                <!-- Search, Cart & Language Toggle -->
+                <div class="nav-right">
+                    <input type="text" id="searchInput" data-placeholder-ar="ابحثي عن قطعة معينة..." data-placeholder-en="Search for an item..." placeholder="ابحثي عن قطعة معينة..." class="search-input">
+                    <button id="cartBtn" class="cart-btn">
+                        🛒 <span data-ar="السلة" data-en="Cart">السلة</span> <span id="cartCount">0</span>
+                    </button>
+                    <button id="langToggle" class="lang-btn">English</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-container">
+            <!-- Category Filters -->
+            <div class="filters-container">
+                <button class="filter-btn active" data-category="all" data-ar="الكل" data-en="All">الكل</button>
+                <button class="filter-btn" data-category="dresses" data-ar="فساتين" data-en="Dresses">فساتين</button>
+                <button class="filter-btn" data-category="sets" data-ar="أطقم كاملة" data-en="Sets">أطقم كاملة</button>
+                <button class="filter-btn" data-category="tops" data-ar="بلوزات وعبايات" data-en="Tops & Abayas">بلوزات وعبايات</button>
+            </div>
+
+            <!-- Product Grid (Populated Dynamically) -->
+            <div class="product-grid" id="productGrid">
+                <!-- Products injected dynamically from products.js -->
+            </div>
+        </main>
+
+        <!-- Talabat-Style Cart Drawer -->
+        <div class="cart-overlay" id="cartOverlay"></div>
+        <div class="cart-drawer" id="cartDrawer">
+            <div class="cart-header">
+                <h2 data-ar="سلة المشتريات" data-en="Shopping Cart">سلة المشتريات</h2>
+                <button id="closeCart" class="close-cart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <p class="empty-cart-text" data-ar="سلتك فارغة حالياً" data-en="Your cart is currently empty">سلتك فارغة حالياً</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span data-ar="الإجمالي:" data-en="Total:">الإجمالي:</span>
+                    <span id="cartTotalPrice">0 EGP</span>
+                </div>
+                <button class="whatsapp-checkout-btn" onclick="checkoutWhatsApp()" data-ar="إتمام الطلب عبر واتساب 💬" data-en="Checkout via WhatsApp 💬">إتمام الطلب عبر واتساب 💬</button>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script src="products.js"></script>
+        <script src="script.js"></script>
+    </body>
+    </html>
