@@ -1,7 +1,7 @@
 // Sanity Configuration (Updated with your dashboard Project ID)
 const PROJECT_ID = "agwjn9e2";
 const DATASET = "production";
-const QUERY = encodeURIComponent('*[_type == "product"]{ "id": _id, "nameAr": title, "nameEn": title, price, "category": "dresses", "sizes": ["S", "M", "L"], "image": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=600&q=80" }');
+const QUERY = encodeURIComponent('*[_type == "product"]{ "id": _id, "nameAr": title, "nameEn": title, price, "category": "dresses", "sizes": ["S", "M", "L"], "image": image.asset->url }');
 const SANITY_URL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${QUERY}`;
 
 // State Management

@@ -108,6 +108,7 @@ body {
     font-weight: 600;
     font-size: 0.85rem;
     transition: var(--transition);
+    white-space: nowrap;
 }
 
 .lang-btn:hover {
@@ -128,6 +129,7 @@ body {
     margin-bottom: 2rem;
     overflow-x: auto;
     padding-bottom: 5px;
+    scrollbar-width: thin;
 }
 
 .filter-btn {
@@ -252,7 +254,6 @@ body {
     z-index: 999;
 }
 
-/* Handles both .open and .active classes */
 .cart-overlay.open, .cart-overlay.active {
     opacity: 1;
     visibility: visible;
@@ -355,4 +356,78 @@ html[dir="ltr"] .cart-drawer.active {
 
 .whatsapp-checkout-btn:hover {
     background: #1EBE5D;
+}
+
+/* =========================================
+   RESPONSIVE MEDIA QUERIES FOR ALL SCREENS
+   ========================================= */
+
+/* Tablets & Medium Screens */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.8rem 4%;
+    }
+    .nav-container {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .logo {
+        width: 100%;
+        text-align: center;
+        font-size: 1.5rem;
+    }
+    .nav-right {
+        width: 100%;
+        justify-content: space-between;
+        gap: 8px;
+    }
+    .search-input {
+        flex-grow: 1;
+        width: auto;
+    }
+    .search-input:focus {
+        width: auto;
+    }
+    .main-container {
+        padding: 0 4%;
+        margin: 1.5rem auto;
+    }
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 18px;
+    }
+}
+
+/* Small Mobile Phones */
+@media (max-width: 480px) {
+    .announcement-bar {
+        font-size: 0.8rem;
+        padding: 6px;
+    }
+    .navbar {
+        padding: 0.6rem 3%;
+    }
+    .logo {
+        font-size: 1.3rem;
+    }
+    .nav-right {
+        gap: 6px;
+    }
+    .search-input {
+        flex-grow: 1;
+        width: auto;
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+    .cart-btn, .lang-btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+    .product-img-box {
+        height: 260px;
+    }
+    .main-container {
+        padding: 0 3%;
+        margin: 1rem auto;
+    }
 }
