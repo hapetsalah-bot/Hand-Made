@@ -53,7 +53,7 @@
                 <span data-ar="الإجمالي:" data-en="Total:">الإجمالي:</span>
                 <span id="cartTotalPrice">0 EGP</span>
             </div>
-            <!-- Opens the Checkout Form -->
+            <!-- Opens the Checkout Modal -->
             <button class="whatsapp-checkout-btn" onclick="openCheckoutModal()" data-ar="إتمام الطلب 💬" data-en="Proceed to Checkout 💬">إتمام الطلب 💬</button>
         </div>
     </div>
@@ -118,16 +118,16 @@
                 </div>
             </div>
 
-            <!-- InstaPay Hidden Details -->
-            <div class="instapay-details" id="instapayBox" style="display: none;">
-                <p data-ar="يرجى تحويل الإجمالي إلى الحساب التالي:" data-en="Please transfer the total to the following account:">يرجى تحويل الإجمالي إلى الحساب التالي:</p>
-                <h3 class="instapay-link">eyadaaa@instapay</h3>
-                
-                <!-- QR Code & Error Handling -->
-                <img src="qr.jpg" alt="InstaPay QR Code" class="qr-img" onerror="this.style.display='none'; document.getElementById('qr-error').style.display='block';">
-                <p id="qr-error" style="display: none; color: #d32f2f; font-size: 0.85rem; margin-top: 10px; font-weight: bold;" data-ar="⚠️ الصورة غير موجودة. يرجى التأكد من وضع صورة باسم qr.jpg في نفس مجلد الموقع." data-en="⚠️ Image missing. Ensure a file named qr.jpg is in the same folder.">
-                    ⚠️ الصورة غير موجودة. يرجى التأكد من وضع صورة باسم qr.jpg في نفس مجلد الموقع.
+            <!-- InstaPay Details & Direct Payment Link -->
+            <div class="instapay-details" id="instapayBox" style="display: none; text-align: center; margin-top: 15px; padding: 15px; background: #fdf8f9; border: 1px dashed #8E334C; border-radius: 8px;">
+                <p data-ar="اضغطي على الزر أدناه للدفع الفوري عبر إنستاباي:" data-en="Click the button below to pay via InstaPay:" style="margin-bottom: 6px; font-weight: 600; color: #444;">
+                    اضغطي على الزر أدناه للدفع الفوري عبر إنستاباي:
                 </p>
+                <h3 class="instapay-link" style="color: #8E334C; font-size: 1.1rem; margin-bottom: 10px;">eyadaaa@instapay</h3>
+                
+                <a href="https://ipn.eg/S/eyadaaa/instapay/1gW8G3" target="_blank" style="display: inline-block; background: #8E334C; color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.95rem; box-shadow: 0 2px 6px rgba(0,0,0,0.15);" data-ar="ادفعي الآن عبر InstaPay 📱" data-en="Pay Now via InstaPay 📱">
+                    ادفعي الآن عبر InstaPay 📱
+                </a>
             </div>
         </div>
         <div class="checkout-footer">
