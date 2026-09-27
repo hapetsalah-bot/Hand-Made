@@ -218,27 +218,23 @@ payRadios.forEach(radio => {
     });
 });
 
-// 8. Submit Final Order to WhatsApp
+// 8. Submit Final Order to WhatsApp (Simplified Address)
 window.submitOrderWhatsApp = function() {
     const cName = document.getElementById('custName').value.trim();
     const cPhone = document.getElementById('custPhone').value.trim();
     const cCity = document.getElementById('custCity').value.trim();
     const cStreet = document.getElementById('custStreet').value.trim();
-    const cBuilding = document.getElementById('custBuilding').value.trim();
-    const cFloor = document.getElementById('custFloor').value.trim();
-    const cApt = document.getElementById('custApt').value.trim();
-    const cLandmark = document.getElementById('custLandmark').value.trim();
     
     const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
 
-    if (!cName || !cPhone || !cCity || !cStreet || !cBuilding || !cFloor || !cApt) {
+    if (!cName || !cPhone || !cCity || !cStreet) {
         alert(currentLang === 'ar' ? 'يرجى إكمال جميع الحقول المطلوبة لتوصيل الطلب.' : 'Please fill in all required delivery fields.');
         return;
     }
 
     const formattedAddress = currentLang === 'ar' 
-        ? `${cCity}، شارع ${cStreet}، مبنى ${cBuilding}، طابق ${cFloor}، شقة ${cApt}${cLandmark ? ' | علامة مميزة: ' + cLandmark : ''}`
-        : `Apt ${cApt}, Floor ${cFloor}, Bldg ${cBuilding}, ${cStreet} St., ${cCity}${cLandmark ? ' | Landmark: ' + cLandmark : ''}`;
+        ? `${cCity}، شارع ${cStreet}`
+        : `${cStreet} St., ${cCity}`;
 
     let msg = currentLang === 'ar' ? "*طلب جديد من المتجر!* 🛍️\n\n" : "*New Store Order!* 🛍️\n\n";
     
