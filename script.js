@@ -1,16 +1,17 @@
-// Sanity Configuration (No sizes queried)
+// Sanity Configuration (Query includes category and salePrice fields)
 const PROJECT_ID = "agwjn9e2";
 const DATASET = "production";
-const QUERY = encodeURIComponent('*[_type == "product"]{ "id": _id, "nameAr": title, "nameEn": title, price, "image": image.asset->url }');
+const QUERY = encodeURIComponent('*[_type == "product"]{ "id": _id, "nameAr": title, "nameEn": title, price, salePrice, category, "image": image.asset->url }');
 const SANITY_URL = `https://${PROJECT_ID}.api.sanity.io/v2021-10-21/data/query/${DATASET}?query=${QUERY}`;
 
 // Target WhatsApp Number
 const STORE_PHONE_NUMBER = "201220208096";
 
-// State Management (No sizes tracked)
+// State Management
 let cart = [];
 let currentLang = 'ar';
 let boutiqueProducts = []; 
+let currentCategory = 'all';
 
 // DOM Elements
 const langToggle = document.getElementById('langToggle');
@@ -51,15 +52,39 @@ async function loadSanityProducts() {
         boutiqueProducts = [];
     }
     
-    renderProducts(boutiqueProducts);
+    applyCategoryFilter();
 }
 
-// 1. Render Products Dynamically (No Size Dropdowns)
+// Category Filter Handler
+window.filterCategory = function(cat, buttonEl) {
+    currentCategory = cat;
+
+    // Update active UI tab styling
+    document.querySelectorAll('.category-card').forEach(btn => btn.classList.remove('active'));
+    if (buttonEl) {
+        buttonEl.classList.add('active');
+    }
+
+    applyCategoryFilter();
+};
+
+function applyCategoryFilter() {
+    if (currentCategory === 'all') {
+        renderProducts(boutiqueProducts);
+    } else {
+        const filtered = boutiqueProducts.filter(product => 
+            product.category && product.category.toLowerCase() === currentCategory.toLowerCase()
+        );
+        renderProducts(filtered);
+    }
+}
+
+// 1. Render Products Dynamically (Handles Sales & Regular Prices)
 function renderProducts(items) {
     if (!productGrid) return;
 
     if (items.length === 0) {
-        const noResultsText = currentLang === 'ar' ? 'لم تقم بإضافة منتجات في لوحة التحكم بعد' : 'No items added in your CMS yet';
+        const noResultsText = currentLang === 'ar' ? 'لا توجد منتجات في هذا القسم حالياً' : 'No items found in this category';
         productGrid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #777; padding: 3rem 1rem; font-weight: 600;">${noResultsText}</p>`;
         return;
     }
@@ -69,6 +94,17 @@ function renderProducts(items) {
         const addToCartText = currentLang === 'ar' ? 'أضفي إلى السلة 🛒' : 'Add to Cart 🛒';
         const imageUrl = product.image || '';
 
+        // Check if there is a valid sale price
+        let priceHtml = '';
+        if (product.salePrice && product.salePrice < product.price) {
+            priceHtml = `
+                <span style="text-decoration: line-through; color: #999; font-size: 0.85rem; margin-left: 6px;">${product.price ? product.price.toLocaleString() : 0} EGP</span>
+                <span style="color: #d32f2f; font-weight: bold;">${product.salePrice.toLocaleString()} EGP</span>
+            `;
+        } else {
+            priceHtml = `${product.price ? product.price.toLocaleString() : 0} EGP`;
+        }
+
         return `
             <div class="product-card">
                 <div class="product-img-box">
@@ -76,7 +112,7 @@ function renderProducts(items) {
                 </div>
                 <div class="product-info">
                     <h3>${name}</h3>
-                    <p class="product-price">${product.price ? product.price.toLocaleString() : 0} EGP</p>
+                    <p class="product-price">${priceHtml}</p>
                     <button class="add-to-cart-btn" onclick="addToCart('${product.id}')">${addToCartText}</button>
                 </div>
             </div>
@@ -99,11 +135,11 @@ langToggle.addEventListener('click', () => {
         el.placeholder = el.getAttribute(`data-placeholder-${currentLang}`);
     });
 
-    renderProducts(boutiqueProducts);
+    applyCategoryFilter();
     updateCartUI();
 });
 
-// 3. Talabat-Style Cart Drawer Toggle
+// 3. Cart Drawer Toggle
 function toggleCart() {
     cartDrawer.classList.toggle('open');
     cartOverlay.classList.toggle('open');
@@ -113,11 +149,12 @@ cartBtn.addEventListener('click', toggleCart);
 closeCart.addEventListener('click', toggleCart);
 cartOverlay.addEventListener('click', toggleCart);
 
-// 4. Add to Cart (No size parameter needed)
+// 4. Add to Cart (Uses sale price if available)
 window.addToCart = function(productId) {
     const product = boutiqueProducts.find(p => p.id === productId);
     if (!product) return;
 
+    const finalPrice = product.salePrice && product.salePrice < product.price ? product.salePrice : product.price;
     const existingItem = cart.find(item => item.id === productId);
     
     if (existingItem) {
@@ -127,7 +164,7 @@ window.addToCart = function(productId) {
             id: product.id,
             nameAr: product.nameAr,
             nameEn: product.nameEn,
-            price: product.price,
+            price: finalPrice,
             image: product.image,
             quantity: 1
         });
@@ -137,7 +174,7 @@ window.addToCart = function(productId) {
     toggleCart();
 };
 
-// 5. Update Cart UI & Totals (No size labels)
+// 5. Update Cart UI & Totals
 function updateCartUI() {
     const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
     cartCount.textContent = totalCount;
@@ -218,7 +255,7 @@ payRadios.forEach(radio => {
     });
 });
 
-// 8. Submit Final Order to WhatsApp (Simplified Address)
+// 8. Submit Final Order to WhatsApp
 window.submitOrderWhatsApp = function() {
     const cName = document.getElementById('custName').value.trim();
     const cPhone = document.getElementById('custPhone').value.trim();
@@ -239,9 +276,9 @@ window.submitOrderWhatsApp = function() {
     let msg = currentLang === 'ar' ? "*طلب جديد من المتجر!* 🛍️\n\n" : "*New Store Order!* 🛍️\n\n";
     
     msg += currentLang === 'ar' ? "📋 *بيانات العميل:*\n" : "📋 *Customer Details:*\n";
-    msg += `- ${currentLang === 'ar' ? 'الاسم' : 'Name'}: ${cName}\n`;
-    msg += `- ${currentLang === 'ar' ? 'الهاتف' : 'Phone'}: ${cPhone}\n`;
-    msg += `- ${currentLang === 'ar' ? 'العنوان' : 'Address'}: ${formattedAddress}\n\n`;
+    msg += `${currentLang === 'ar' ? 'الاسم' : 'Name'}: ${cName}\n`;
+    msg += `${currentLang === 'ar' ? 'الهاتف' : 'Phone'}: ${cPhone}\n`;
+    msg += `${currentLang === 'ar' ? 'العنوان' : 'Address'}: ${formattedAddress}\n\n`;
 
     msg += currentLang === 'ar' ? "🛒 *المنتجات:*\n" : "🛒 *Order Items:*\n";
     cart.forEach(item => {

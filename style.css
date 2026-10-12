@@ -108,6 +108,77 @@ body {
     padding: 0 5%;
 }
 
+/* =========================================
+   CATEGORIES SECTION (الأقسام)
+   ========================================= */
+.categories-section {
+    margin: 1rem 0 2rem 0;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 1.2rem;
+}
+
+.categories-carousel {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 12px;
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+}
+
+.categories-carousel::-webkit-scrollbar {
+    display: none; /* Hide scrollbar Chrome/Safari */
+}
+
+.category-card {
+    flex: 0 0 190px;
+    height: 110px;
+    background: linear-gradient(135deg, #fdf0f4, #f8bbd0);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    padding: 0;
+    outline: none;
+}
+
+.category-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(142, 51, 76, 0.15);
+}
+
+.category-card.active {
+    border-color: var(--primary-pink);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(142, 51, 76, 0.25);
+}
+
+.category-badge {
+    background: var(--white);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--text-main);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    white-space: nowrap;
+    transition: var(--transition);
+}
+
+.category-card.active .category-badge {
+    background: var(--primary-pink);
+    color: var(--white);
+}
+
 /* Product Grid & Cards */
 .product-grid {
     display: grid;
@@ -446,6 +517,8 @@ html[dir="ltr"] .cart-drawer.open { left: 0; }
 @media (max-width: 768px) {
     .navbar { padding: 0.8rem 4%; }
     .product-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
+    .category-card { flex: 0 0 160px; height: 95px; }
+    .category-badge { font-size: 0.85rem; padding: 6px 12px; }
 }
 
 @media (max-width: 480px) {

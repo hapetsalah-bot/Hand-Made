@@ -32,6 +32,38 @@
 
     <!-- Main Content -->
     <main class="main-container">
+
+        <!-- Categories Section (الأقسام) -->
+        <section class="categories-section">
+            <h2 class="section-title" data-ar="الأقسام" data-en="Categories">الأقسام</h2>
+            <div class="categories-carousel">
+                <!-- All / الكل -->
+                <button class="category-card active" onclick="filterCategory('all', this)">
+                    <span class="category-badge" data-ar="الكل" data-en="All">الكل</span>
+                </button>
+
+                <!-- 1. بدل بروفشنال -->
+                <button class="category-card" onclick="filterCategory('professional', this)">
+                    <span class="category-badge" data-ar="بدل بروفشنال" data-en="Professional Costumes">بدل بروفشنال</span>
+                </button>
+
+                <!-- 2. بدل رقص شرقي -->
+                <button class="category-card" onclick="filterCategory('bellydance', this)">
+                    <span class="category-badge" data-ar="بدل رقص شرقي" data-en="Bellydance Costumes">بدل رقص شرقي</span>
+                </button>
+
+                <!-- 3. جلاليب رقص شرقي -->
+                <button class="category-card" onclick="filterCategory('galabeya', this)">
+                    <span class="category-badge" data-ar="جلاليب رقص شرقي" data-en="Galabeyas">جلاليب رقص شرقي</span>
+                </button>
+
+                <!-- 4. تخفيضات وعروض (Sales) -->
+                <button class="category-card" onclick="filterCategory('sale', this)">
+                    <span class="category-badge" data-ar="تخفيضات 🏷️" data-en="Sales 🏷️">تخفيضات 🏷️</span>
+                </button>
+            </div>
+        </section>
+
         <!-- Product Grid (Populated Dynamically) -->
         <div class="product-grid" id="productGrid">
             <!-- Products injected dynamically from script.js -->
@@ -87,7 +119,6 @@
                     </div>
                 </div>
             </div>
-            
             <div class="form-group" style="margin-top: 10px;">
                 <label data-ar="طريقة الدفع *" data-en="Payment Method *">طريقة الدفع *</label>
                 <div class="payment-options">
