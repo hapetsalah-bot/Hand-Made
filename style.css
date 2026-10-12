@@ -16,7 +16,9 @@
     font-family: 'Cairo', sans-serif;
 }
 
-body {
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
     background-color: var(--bg-base);
     color: var(--text-main);
 }
@@ -409,9 +411,7 @@ html[dir="ltr"] .cart-drawer.open { left: 0; }
     border-right: 1px solid #ddd;
 }
 
-/* =========================================
-   CHECKOUT MODAL & INSTAPAY
-   ========================================= */
+/* Checkout Modal */
 .checkout-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.5); opacity: 0; visibility: hidden;
@@ -450,10 +450,9 @@ html[dir="ltr"] .cart-drawer.open { left: 0; }
     background: #F4F4F4; padding: 15px; border-radius: 10px; text-align: center; margin-top: 10px; border: 1px dashed #6b21a8;
 }
 .instapay-link { color: #6b21a8; font-size: 1.2rem; margin: 10px 0; user-select: all; }
-.qr-img { max-width: 150px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 .checkout-footer { padding: 1.5rem; border-top: 1px solid #ddd; }
 
-/* Talabat-Style Address Form */
+/* Address Form */
 .address-section {
     background: #F9F9F9;
     padding: 15px;
@@ -472,16 +471,6 @@ html[dir="ltr"] .cart-drawer.open { left: 0; }
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
-
-.row-group {
-    display: flex;
-    gap: 10px;
-    width: 100%;
-}
-
-.half {
-    flex: 1;
 }
 
 .address-section input {
@@ -513,22 +502,58 @@ html[dir="ltr"] .cart-drawer.open { left: 0; }
     color: #FFFFFF;
 }
 
-/* Responsive Media Queries */
+/* =========================================
+   RESPONSIVE MEDIA QUERIES (MOBILE FIXES)
+   ========================================= */
 @media (max-width: 768px) {
     .navbar { padding: 0.8rem 4%; }
-    .product-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
-    .category-card { flex: 0 0 160px; height: 95px; }
-    .category-badge { font-size: 0.85rem; padding: 6px 12px; }
+    
+    .categories-carousel {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 8px;
+        padding-bottom: 8px;
+    }
+
+    .category-card {
+        flex: 0 0 auto;
+        height: auto;
+        padding: 6px 12px;
+        background: var(--light-pink);
+        border-radius: 20px;
+        box-shadow: none;
+    }
+
+    .category-badge {
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+        font-size: 0.85rem;
+    }
+
+    .category-card.active .category-badge {
+        background: transparent;
+    }
+
+    .product-grid { 
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+        gap: 14px; 
+    }
+
+    .product-img-box { height: 200px; }
+    .product-info { padding: 0.8rem; }
+    .product-info h3 { font-size: 0.95rem; }
+    .product-price { font-size: 0.95rem; }
 }
 
 @media (max-width: 480px) {
-    .announcement-bar { font-size: 0.8rem; padding: 6px; }
-    .navbar { padding: 0.6rem 3%; }
+    .announcement-bar { font-size: 0.78rem; padding: 6px; }
     .logo { font-size: 1.3rem; }
     .nav-right { gap: 6px; }
-    .cart-btn, .lang-btn { padding: 6px 10px; font-size: 0.75rem; }
-    .product-img-box { height: 260px; }
+    .cart-btn, .lang-btn { padding: 5px 10px; font-size: 0.75rem; }
     .main-container { padding: 0 3%; margin: 1rem auto; }
+    .cart-drawer { width: 100vw; max-width: 100vw; }
     .checkout-modal { width: 95%; }
     
     .floating-whatsapp {
@@ -539,7 +564,7 @@ html[dir="ltr"] .cart-drawer.open { left: 0; }
     }
     
     .floating-whatsapp svg {
-        width: 30px;
-        height: 30px;
+        width: 28px;
+        height: 28px;
     }
 }
