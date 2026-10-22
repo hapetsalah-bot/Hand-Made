@@ -42,9 +42,9 @@ export default {
       options: {
         list: [
           { title: 'بدل بروفشنال', value: 'professional' },
+          { title: 'بدل قصيرة', value: 'short-suits' },
           { title: 'بدل رقص شرقي', value: 'bellydance' },
           { title: 'جلاليب رقص شرقي', value: 'galabeya' },
-          { title: 'بدل قصيرة', value: 'short-suits' }, // <-- ADDED HERE
           { title: 'تخفيضات وعروض (Sales)', value: 'sale' },
         ],
         layout: 'dropdown',
